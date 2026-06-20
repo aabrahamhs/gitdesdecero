@@ -1,7 +1,5 @@
 # Git Desde Cero
 
-> commit 3 desde feature/TICKET-002-cambiosFile002
-
 ## ¿Qué es Git?
 Git es un sistema de control de versiones distribuido que te permite rastrear los cambios en tu código fuente de manera estructurada y segura.
 
