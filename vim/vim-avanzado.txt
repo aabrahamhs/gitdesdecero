@@ -1,0 +1,132 @@
+================================================================================
+                    GUÍA AVANZADA DE VIM: DOMINANDO LOS MODOS
+================================================================================
+
+Una vez dominados los movimientos básicos, el verdadero poder de Vim se 
+desbloquea al entender las características avanzadas de cada modo. Aquí tienes 
+el siguiente nivel de tu entrenamiento.
+
+--------------------------------------------------------------------------------
+1. MODO NORMAL AVANZADO (Registros, Macros y Folds)
+--------------------------------------------------------------------------------
+
+El Modo Normal no es solo para moverse, es el centro de control.
+
+A. LOS REGISTROS (Múltiples portapapeles)
+Vim no tiene un solo portapapeles, tiene docenas llamados "Registros". Para 
+usar un registro, presiona comillas dobles (") seguido de la letra del registro 
+y luego el comando (y, d, p).
+
+      DIAGRAMA DE REGISTROS DE VIM
+      ---------------------------------------------------------
+     |   Copiado ("y) / Borrado ("d)                           |
+     |        |                                                |
+     |        v                                                |
+     |  +-------------+    +-------------+    +-------------+  |
+     |  | Registro "" |    | Registros   |    | Registro "+ |  |
+     |  | (Por Defecto|    | "a hasta "z |    | (Sistema OS)|  |
+     |  +-------------+    +-------------+    +-------------+  |
+     |   Guarda lo         Portapapeles       Se sincroniza    |
+     |   último copiado    nombrados para     con tu Ctrl+C /  |
+     |   o borrado.        uso específico.    Ctrl+V del PC.   |
+      ---------------------------------------------------------
+
+  * " a y w -> Copia (y) una palabra (w) en el registro 'a'.
+  * " a p   -> Pega (p) el contenido del registro 'a'.
+  * " + y   -> Copia al portapapeles de tu sistema operativo.
+
+B. MACROS (Automatización de tareas repetitivas)
+Graba una secuencia de teclas y repítela 'n' cantidad de veces.
+
+  1. Presiona `q` + `[letra]` (ej. `qa`) para empezar a grabar en el registro 'a'.
+  2. Haz los cambios necesarios en tu línea.
+  3. Presiona `q` nuevamente para detener la grabación.
+  4. Presiona `@a` para ejecutar la macro una vez, o `10@a` para 10 veces.
+
+C. FOLDS (Plegado de código)
+Oculta bloques de código para mejorar la legibilidad.
+  * z c -> Cierra (Close) un pliegue.
+  * z o -> Abre (Open) un pliegue.
+  * z a -> Alterna (Toggle) entre abrir y cerrar.
+
+--------------------------------------------------------------------------------
+2. MODO INSERTAR AVANZADO (Más allá de escribir)
+--------------------------------------------------------------------------------
+
+Incluso mientras escribes texto, Vim te ofrece atajos poderosos para no 
+tener que volver al Modo Normal constantemente.
+
+| Atajo en Insertar | Acción / Funcionamiento                                  |
+|-------------------|----------------------------------------------------------|
+| <C-r> + [reg]     | Pega el contenido de un registro. (Ej: <C-r> + a).       |
+| <C-o>             | Ejecuta UN SOLO comando del modo normal y regresa a      |
+|                   | modo insertar. (Ej: <C-o> A  para saltar al final).      |
+| <C-w>             | Borra la palabra anterior a tu cursor.                   |
+| <C-u>             | Borra todo a la izquierda del cursor hasta el inicio.    |
+| <C-n> / <C-p>     | ¡Autocompletado nativo! Sugiere palabras usadas en el    |
+|                   | archivo actual (Next / Previous).                        |
+
+--------------------------------------------------------------------------------
+3. MODO VISUAL AVANZADO (El poder del Bloque Visual)
+--------------------------------------------------------------------------------
+
+Vim tiene tres formas de seleccionar texto:
+1. `v`     -> Visual estándar (por carácter).
+2. `V`     -> Visual por línea (selecciona líneas completas).
+3. `<C-v>` -> Visual en Bloque (Ctrl + v). ¡La joya de la corona!
+
+      DIAGRAMA DE BLOQUE VISUAL (<C-v>)
+      ---------------------------------------------------------
+      Imagina que quieres agregar "//" al inicio de 3 líneas:
+
+      ESTADO INICIAL:          1. <C-v> + j + j        2. Presiona 'I' (Insertar)
+                                  (Selecciona col)        escribe "// " y <Esc>
+      
+      const a = 1;             [c]onst a = 1;          // const a = 1;
+      const b = 2;      --->   [c]onst b = 2;   --->   // const b = 2;
+      const c = 3;             [c]onst c = 3;          // const c = 3;
+      ---------------------------------------------------------
+
+--------------------------------------------------------------------------------
+4. MODO COMANDOS / EX AVANZADO (Manipulación masiva)
+--------------------------------------------------------------------------------
+
+El modo que se activa con `:` esconde un potente motor de procesamiento de texto.
+
+A. RANGOS Y SUSTITUCIÓN
+Estructura: `:[rango]s/[búsqueda]/[reemplazo]/[flags]`
+
+  * :%s/foo/bar/g   -> Reemplaza 'foo' por 'bar' en TODO el archivo (%).
+  * :%s/foo/bar/gc  -> Igual, pero pide confirmación (c) en cada coincidencia.
+  * :10,20s/a/b/g   -> Solo reemplaza entre las líneas 10 y 20.
+
+B. EL COMANDO GLOBAL (El comando más potente de Vim)
+Estructura: `:[rango]g/[patrón]/[comando_normal]`
+Aplica un comando solo a las líneas que coincidan con un patrón.
+
+  * :g/ERROR/d      -> Borra (d) todas las líneas que contengan "ERROR".
+  * :v/TODO/d       -> (Inverso de g). Borra todas las líneas que NO tengan "TODO".
+
+C. GESTIÓN DE VENTANAS (Splits)
+Vim permite dividir tu terminal en múltiples vistas del mismo o distintos archivos.
+
+      DIAGRAMA DE VENTANAS (SPLITS) Y PESTAÑAS (TABS)
+      ---------------------------------------------------------
+      Pestañas (Tabs) -> |  Tab 1 (main.js) |  Tab 2 (index.html) |
+                         ==========================================
+      Ventanas           |                 |                      |
+      (Splits)           |  :vsp (Split    |  :sp (Split          |
+                         |  Vertical)      |  Horizontal)         |
+                         |                 |----------------------|
+                         |                 |                      |
+                         |                 |                      |
+                         ------------------------------------------
+
+  * :sp [archivo]   -> Divide la pantalla horizontalmente.
+  * :vsp [archivo]  -> Divide la pantalla verticalmente.
+  * <C-w> + [hjkl]  -> Navega entre las ventanas divididas.
+  * <C-w> + =       -> Iguala el tamaño de todas las ventanas.
+  * :tabnew         -> Abre una nueva pestaña.
+  * gt / gT         -> Navega entre pestañas (Modo Normal).
+
+================================================================================
