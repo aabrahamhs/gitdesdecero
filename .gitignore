@@ -1,1 +1,108 @@
 # .gitignore
+#
+# Propósito: Especifica qué archivos/carpetas NO deben ser rastreados por Git.
+# Los patrones aquí definidos aplican de forma recursiva en todo el proyecto.
+# ===============================================
+
+# -----------------------------------------------
+# 1. ARCHIVOS DEL SISTEMA OPERATIVO
+# -----------------------------------------------
+# Archivos generados automáticamente por el SO que son basura local.
+.DS_Store          # Metadatos de macOS (Finder)
+Thumbs.db          # Miniaturas de Windows
+desktop.ini        # Configuración de carpetas en Windows
+*.tmp              # Archivos temporales genéricos
+
+# -----------------------------------------------
+# 2. DEPENDENCIAS (No se versionan, se instalan)
+# -----------------------------------------------
+# Estas carpetas pesan mucho y se pueden reconstruir con package managers.
+node_modules/      # Node.js (npm/yarn/pnpm)
+vendor/            # PHP (Composer) o Ruby (Bundler)
+venv/              # Python (Virtualenv)
+.venv/
+env/
+__pycache__/       # Caché de bytecode de Python
+*.pyc              # Archivos compilados de Python
+*.class            # Bytecode de Java
+
+# -----------------------------------------------
+# 3. CARPETAS DE COMPILACIÓN Y DISTRIBUCIÓN
+# -----------------------------------------------
+# Todo lo que se genera al compilar o construir el proyecto.
+build/             # Directorio de compilación (C/C++, Android, etc.)
+dist/              # Directorio de distribución (empaquetados)
+out/               # Salida de compiladores (Java, etc.)
+target/            # Maven/Gradle (Java)
+bin/               # Ejecutables
+*.exe              # Ejecutables de Windows
+*.dll
+*.so
+*.dylib
+
+# -----------------------------------------------
+# 4. ENTORNOS Y SECRETOS (¡SEGURIDAD!)
+# -----------------------------------------------
+# NUNCA subir credenciales, claves API o variables de entorno al repo.
+.env               # Variables de entorno locales
+.env.*             # Cualquier variante de .env (ej .env.production)
+*.pem              # Certificados y claves privadas
+*.key
+secrets.yml
+config/secrets.yml
+credentials.json
+
+# -----------------------------------------------
+# 5. EDITORES DE CÓDIGO E IDE (Preferencias personales)
+# -----------------------------------------------
+# Cada desarrollador usa su IDE favorito. Sus configuraciones locales
+# no deben interferir con el resto del equipo.
+.vscode/           # Visual Studio Code (excepto extensions.json si se comparte)
+.idea/             # IntelliJ IDEA / PHPStorm / WebStorm
+*.iml              # Módulos de IntelliJ
+*.swp              # Archivos de intercambio de Vim
+*.swo
+*.swn
+*.bak              # Backups automáticos de algunos editores
+.DS_Store
+
+# -----------------------------------------------
+# 6. LOGS Y ARCHIVOS DE MONITOREO
+# -----------------------------------------------
+# Los logs llenan el historial innecesariamente y contienen datos de ejecución.
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+access.log
+error.log
+
+# -----------------------------------------------
+# 7. ARCHIVOS SUBIDOS POR EL USUARIO (Según el negocio)
+# -----------------------------------------------
+# Si tu app permite subir imágenes/docs, la carpeta de uploads no va en Git.
+temp/
+uploads/
+media/
+temp_uploads/
+*.zip              # Archivos comprimidos subidos o generados
+*.tar.gz
+
+# -----------------------------------------------
+# 8. HERRAMIENTAS DE COBERTURA Y PRUEBAS
+# -----------------------------------------------
+coverage/          # Reportes de cobertura de código (Istanbul, Jest, etc.)
+.nyc_output/
+*.test-report.json
+junit.xml
+.pytest_cache/
+
+# ===============================================
+# NOTAS SOBRE LA SINTAXIS (Para incluirlo en tu docu)
+# ===============================================
+# - Las líneas que empiezan con '#' son comentarios y se ignoran.
+# - Usa '/' al final para ignorar carpetas (ej: build/).
+# - Usa '*' como comodín (ej: *.log ignora todos los .log).
+# - Usa '!' para negar (excepción). Ej: !.env.example permite ese archivo.
+# - Las rutas son relativas a la ubicación del .gitignore.
