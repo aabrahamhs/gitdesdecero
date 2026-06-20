@@ -1,0 +1,131 @@
+================================================================================
+                        GUÍA DE REFERENCIA COMPLETA DE VIM
+================================================================================
+
+¡Felicidades por empezar a aprender Vim! La curva de aprendizaje es empinada, 
+pero una vez que dominas la memoria muscular, tu velocidad de edición será 
+increíble. Vim se basa en la idea de que pasamos más tiempo leyendo y 
+navegando código que escribiéndolo.
+
+--------------------------------------------------------------------------------
+1. LOS MODOS DE VIM (Diagrama de Transición)
+--------------------------------------------------------------------------------
+
+Vim es un editor "modal", lo que significa que las mismas teclas hacen cosas 
+diferentes dependiendo del modo en el que te encuentres.
+
+      [ INICIO ]
+          |
+          v
+    +-----------+   i, a, o, c, s    +-----------+
+    |           | -----------------> |           |
+    |  NORMAL   |                    | INSERTAR  | (Escribes texto normalmente)
+    |           | <----------------- |           |
+    +-----------+      <Esc>         +-----------+
+      |   ^   |
+      |   |   | v, V, <C-v>
+      |   |   +---------------------> +-----------+
+      |   |                           |           |
+      |   +-------------------------- |  VISUAL   | (Seleccionas texto)
+      |            <Esc>              |           |
+      |                               +-----------+
+      | : , / , ?
+      v
+    +-----------+
+    | COMANDOS  | ---> <Enter> ejecuta el comando, <Esc> cancela y vuelve
+    +-----------+      (Guardar, salir, buscar, configuraciones)
+
+--------------------------------------------------------------------------------
+2. MOVIMIENTO BÁSICO (Modo Normal)
+--------------------------------------------------------------------------------
+Olvída las flechas direccionales. En Vim, no necesitas mover la mano derecha 
+fuera de la fila central (home row).
+
+        Arriba
+          ^
+          k
+ Izq < h     l > Der
+          j
+          v
+        Abajo
+
+--------------------------------------------------------------------------------
+3. EL TECLADO EN VIM (Funciones de la A a la Z en Modo Normal)
+--------------------------------------------------------------------------------
+
+A continuación, una tabla que explica qué hace cada letra en su versión 
+minúscula y mayúscula cuando estás en Modo Normal.
+
+| Letra | Minúscula (Ej: a)                             | Mayúscula (Ej: A)                              |
+|-------|-----------------------------------------------|------------------------------------------------|
+|   A   | append: Inserta texto DESPUÉS del cursor      | Append: Inserta texto al FINAL de la línea     |
+|   B   | back: Salta al inicio de la palabra anterior  | Back: Igual, pero ignora signos de puntuación  |
+|   C   | change: Borra y entra en modo Insertar        | Change: Borra hasta el final de la línea       |
+|   D   | delete: Corta/Borra según movimiento          | Delete: Corta/Borra hasta el final de la línea |
+|   E   | end: Salta al final de la palabra actual      | End: Igual, pero ignora signos de puntuación   |
+|   F   | find: Busca carácter a la DERECHA en la línea | Find: Busca carácter a la IZQUIERDA            |
+|   G   | g: Comandos especiales (ej. gg = inicio doc)  | Go: Va a la ÚLTIMA línea del documento         |
+|   H   | h: Mueve el cursor a la IZQUIERDA             | High: Va a la línea SUPERIOR de la pantalla    |
+|   I   | insert: Inserta texto ANTES del cursor        | Insert: Inserta al PRINCIPIO de la línea       |
+|   J   | j: Mueve el cursor hacia ABAJO                | Join: Une la línea actual con la de abajo      |
+|   K   | k: Mueve el cursor hacia ARRIBA               | K: Abre el manual (man) de la palabra bajo cursor|
+|   L   | l: Mueve el cursor a la DERECHA               | Low: Va a la línea INFERIOR de la pantalla     |
+|   M   | mark: Crea una marca (ej. ma)                 | Middle: Va a la línea CENTRAL de la pantalla   |
+|   N   | next: Siguiente coincidencia de búsqueda (/)  | Next: Coincidencia ANTERIOR de la búsqueda     |
+|   O   | open: Abre nueva línea ABAJO y modo Insertar  | Open: Abre nueva línea ARRIBA y modo Insertar  |
+|   P   | put: Pega el texto DESPUÉS del cursor         | Put: Pega el texto ANTES del cursor            |
+|   Q   | q: Inicia grabación de macro (ej. qa)         | Q: Entra en modo Ex (¡evítalo al principio!)   |
+|   R   | replace: Reemplaza un solo carácter           | Replace: Entra en modo Reemplazar (Sobrescribe)|
+|   S   | substitute: Borra carácter y modo Insertar    | Substitute: Borra LÍNEA entera y modo Insertar |
+|   T   | till: Salta JUSTO ANTES del carácter (Der.)   | Till: Salta JUSTO DESPUÉS del carácter (Izq.)  |
+|   U   | undo: Deshace el último cambio                | Undo: Deshace TODOS los cambios de la línea    |
+|   V   | visual: Inicia selección visual por carácter  | Visual: Inicia selección visual por LÍNEAS     |
+|   W   | word: Salta al inicio de la siguiente palabra | Word: Igual, pero ignora signos de puntuación  |
+|   X   | x: Borra el carácter BAJO el cursor (Supr)    | X: Borra el carácter ANTES del cursor (Retro)  |
+|   Y   | yank: Copia según movimiento (ej. yw)         | Yank: Copia (Yank) la línea actual entera      |
+|   Z   | z: Comandos de vista (ej. zz = centrar vista) | Z: Comandos rápidos (ej. ZZ = guardar y salir) |
+
+--------------------------------------------------------------------------------
+4. LA SINTAXIS DE COMANDOS DE VIM (El "Lenguaje")
+--------------------------------------------------------------------------------
+La verdadera magia de Vim es que hablas con él creando oraciones:
+Estructura:  [Número] + [Verbo] + [Modificador] + [Sujeto/Movimiento]
+
+* Verbos (Acciones):
+  - d : Borrar (Delete / Cortar)
+  - c : Cambiar (Change / Borra y entra a modo insertar)
+  - y : Copiar (Yank)
+  - v : Seleccionar (Visual)
+
+* Modificadores:
+  - i : Dentro de (Inside)
+  - a : Alrededor de (Around)
+
+* Sujetos (Objetos de texto):
+  - w : Palabra (Word)
+  - s : Oración (Sentence)
+  - p : Párrafo (Paragraph)
+  - t : Etiqueta HTML/XML (Tag)
+  - " o ' o ( o { o [ : Citas y paréntesis
+
+EJEMPLOS PRÁCTICOS:
+  - d w   -> Borra (d) una palabra (w)
+  - d i w -> Borra (d) dentro (i) de la palabra (w)
+  - c a " -> Cambia (c) alrededor (a) de las comillas ("). Borra comillas y texto.
+  - y i ( -> Copia (y) el contenido dentro (i) de los paréntesis ().
+  - 3 d w -> Borra (d) 3 palabras (w)
+
+--------------------------------------------------------------------------------
+5. GUARDAR Y SALIR (Modo Comandos)
+--------------------------------------------------------------------------------
+Asegúrate de estar en modo NORMAL presionando <Esc>. Luego escribe dos puntos (:).
+
+:w      -> Guardar (Write)
+:q      -> Salir (Quit)
+:wq     -> Guardar y salir
+:x      -> Guardar y salir (Igual que :wq)
+:q!     -> Salir SIN guardar (Forzar)
+:w!     -> Forzar guardado (si tienes permisos)
+================================================================================
+
+
