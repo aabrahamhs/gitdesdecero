@@ -30,6 +30,8 @@ Para entender cómo funciona Git, es indispensable conocer las "estaciones" o es
         |<--------------------------------------------------------------------------|
 ```
 
+![Diagrama de Flujo de los Espacios de Trabajo](flujoGit.png)
+
 ## Comandos Básicos de Inicio
 
 A continuación, los comandos que te permitirán mover tus archivos a través de estos espacios en tu día a día:
