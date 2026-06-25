@@ -78,6 +78,11 @@ A continuación, se detalla la guía completa de comandos. Todos los ejemplos as
 * **Ejemplos intermedios/avanzados:**
 
   ```bash
+  # Configura vim como el editor predeterminado global de git
+  git config --global merge.tool vimdiff
+  ```
+  
+  ```bash
   # Configura VS Code como el editor predeterminado para este repositorio específico
   git config --local core.editor "code --wait"
   ```
